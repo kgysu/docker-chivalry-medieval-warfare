@@ -43,5 +43,8 @@
 #launch
 #./UDKGameServer-Linux AOCFFA-Moor_p\?steamsockets\?Port=8000\?QueryPort=27015\?adminpassword=adminPw1\?password=pwVeryStrong1 -seekfreeloadingserver
 
-echo "Start Server on port=${SERVER_PORT}"
-./UDKGameServer-Linux AOCFFA-Moor_p\?steamsockets\?Port=${SERVER_PORT}\?QueryPort=${SERVER_ADMIN_PORT}\?adminpassword=${ADMIN_PASSWORD}\?password=${USER_PASSWORD} -seekfreeloadingserver
+echo "Start Server on port=${CMW_SERVER_PORT}"
+echo "pw=${CMW_USER_PASSWORD} Admin: ${CMW_ADMIN_PASSWORD}:${CMW_SERVER_ADMIN_PORT}"
+echo "./UDKGameServer-Linux AOCFFA-Moor_p?steamsockets?Port=${CMW_SERVER_PORT}?QueryPort=${CMW_SERVER_ADMIN_PORT}?adminpassword=${CMW_ADMIN_PASSWORD}?password=${CMW_USER_PASSWORD} -seekfreeloadingserver"
+echo ""
+./UDKGameServer-Linux AOCFFA-Moor_p?steamsockets?Port=${CMW_SERVER_PORT}?QueryPort=${CMW_SERVER_ADMIN_PORT}?adminpassword=${CMW_ADMIN_PASSWORD}?password=${CMW_USER_PASSWORD} -seekfreeloadingserver

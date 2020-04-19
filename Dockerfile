@@ -38,10 +38,8 @@ COPY PCServer-UDKGame.ini /usr/local/bin/PCServer-UDKGame.ini
 USER steam
 
 ## install steamcmd
-RUN mkdir -p /opt/chivalry/steamcmd
-WORKDIR /opt/chivalry/steamcmd
-RUN pwd
-RUN curl -Ss http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -xz
+RUN mkdir -p "/opt/chivalry/steamcmd"
+RUN curl -Ss http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -xz -C /opt/chivalry/steamcmd
 
 ## install chivalry
 RUN "/opt/chivalry/steamcmd/steamcmd.sh" +login anonymous +force_install_dir "/opt/chivalry/server" +app_update 220070 +quit
@@ -50,19 +48,21 @@ RUN echo "219640" > "/opt/chivalry/server/Binaries/Linux/steam_appid.txt"
 
 ## install configurations
 RUN mkdir -p /opt/chivalry/config
-WORKDIR /opt/chivalry/config
-RUN ln -s ../server/UDKGame/Config/PCServer-UDKGame.ini PCServer-UDKGame.ini
+
+#WORKDIR /opt/chivalry/config
+RUN ln -s /opt/chivalry/server/UDKGame/Config/PCServer-UDKGame.ini /opt/chivalry/config/PCServer-UDKGame.ini
 RUN mkdir -p "/home/steam/.local/share/TornBanner/Chivalry"
 RUN ln -s /opt/chivalry/server/UDKGame /home/steam/.local/share/TornBanner/Chivalry/UDKGame
+
 RUN cp /usr/local/bin/PCServer-UDKGame.ini /opt/chivalry/server/UDKGame/Config/PCServer-UDKGame.ini
 
 ## set env
 ENV LD_LIBRARY_PATH=/opt/chivalry/server/linux64:/opt/chivalry/server/Binaries/Linux/lib
-ENV SERVER_PORT=8000
-ENV SERVER_ADMIN_PORT=27015
-ENV ADMIN_PASSWORD="defaultAdmin"
-ENV USER_PASSWORD="default"
+ENV CMW_SERVER_PORT=8000
+ENV CMW_SERVER_ADMIN_PORT=27015
+ENV CMW_ADMIN_PASSWORD="defaultAdmin"
+ENV CMW_USER_PASSWORD="default"
 
+RUN cd "/opt/chivalry/server/Binaries/Linux"
 WORKDIR /opt/chivalry/server/Binaries/Linux
-
 CMD ["/usr/local/bin/run-chivalry"]
