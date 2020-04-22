@@ -18,7 +18,7 @@ RUN set -x && \
 RUN apt-get clean autoclean purge && \
     rm -fr /tmp/*
 
-RUN useradd -r -m -u 1000 steam
+RUN useradd -r -m -u 1000160000 steam
 
 ################################################################################
 ## volume
@@ -58,11 +58,13 @@ RUN cp /usr/local/bin/PCServer-UDKGame.ini /opt/chivalry/server/UDKGame/Config/P
 
 ## set env
 ENV LD_LIBRARY_PATH=/opt/chivalry/server/linux64:/opt/chivalry/server/Binaries/Linux/lib
-ENV CMW_SERVER_PORT=8000
-ENV CMW_SERVER_ADMIN_PORT=27015
+ENV CMW_GAME_PORT=8000
+ENV CMW_GAME_PASSWORD="some"
+ENV CMW_ADMIN_PORT=27015
 ENV CMW_ADMIN_PASSWORD="defaultAdmin"
-ENV CMW_USER_PASSWORD="default"
 
-RUN cd "/opt/chivalry/server/Binaries/Linux"
 WORKDIR /opt/chivalry/server/Binaries/Linux
+
+# CMD
+#CMD ["/bin/bash"]
 CMD ["/usr/local/bin/run-chivalry"]

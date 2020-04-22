@@ -23,4 +23,5 @@
 ```bash
 $ docker volume create chivalry-data 
 $ docker run -it -v chivalry-data:/opt/chivalry -p 0.0.0.0:8000:8000/udp -p 0.0.0.0:27015:27015/udp chivalry:0.1
+$ docker run -it -p 0.0.0.0:8000:8000/udp -p 0.0.0.0:27015:27015/udp chivalry:0.1
 ``` 
