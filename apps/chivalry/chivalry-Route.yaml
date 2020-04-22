@@ -1,0 +1,21 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    app: chivalry
+  creationTimestamp: null
+  labels:
+    app: chivalry
+  name: chivalry
+spec:
+  host: chivalry-route
+  port:
+    targetPort: ${CMW_GAME_PORT}
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: chivalry
+    weight: 100
+  wildcardPolicy: None

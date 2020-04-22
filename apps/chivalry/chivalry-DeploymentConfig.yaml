@@ -1,0 +1,54 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    app: chivalry
+  labels:
+    app: chivalry
+  name: chivalry
+spec:
+  replicas: 1
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      annotations:
+        app: chivalry
+      labels:
+        app: chivalry
+      name: chivalry
+    spec:
+      securityContext:
+        runAsUser: 1000160000
+      containers:
+        - env:
+            - name: CMW_GAME_PORT
+              value: "${CMW_GAME_PORT}"
+            - name: CMW_ADMIN_PORT
+              value: "${CMW_ADMIN_PORT}"
+            - name: CMW_ADMIN_PASSWORD
+              value: "${CMW_ADMIN_PASSWORD}"
+            - name: CMW_USER_PASSWORD
+              value: "${CMW_USER_PASSWORD}"
+          image: registry.hub.docker.com/delai21/chivalry-mw-server:${VERSION}
+          imagePullPolicy: IfNotPresent
+          name: chivalry
+          ports:
+            - containerPort: 8000
+              name: game
+              protocol: UDP
+            - containerPort: 27015
+              name: admin
+              protocol: UDP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+  test: false
+  triggers:
+    - type: ConfigChange
