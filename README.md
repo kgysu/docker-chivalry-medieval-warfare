@@ -2,7 +2,7 @@
 
 ## Setup initial
 
-1. Change Passwords in Code.
+1. Change Passwords in `run.sh`
 2. Run:
 
 ```bash
@@ -36,6 +36,17 @@ Maps:
 Add Map with: `-sdkfileid=x`
 
 
+## In Game config
+
+Open Console: `¨` or `!`
+
+Join Game with: `open <ip>:<port>?password=<pw>`
+
+Admin login: `adminlogin <pw>`
+
+Change Map: `adminchangemap <name>`
+
+
 ## Info
 
 ### Features / tested with
@@ -50,4 +61,5 @@ Add Map with: `-sdkfileid=x`
 * scripts can be optimized
 * no restart if the server has a coredump
 * docker-compose network does not work
+* use steam user instead of root
 

@@ -34,5 +34,5 @@ COPY PCServer-UDKGame.ini /usr/local/bin/PCServer-UDKGame.ini
 
 ################################################################################
 ## app run
-USER steam
+#USER steam
 ENTRYPOINT /usr/local/bin/run-chivalry.sh
