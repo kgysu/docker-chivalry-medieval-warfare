@@ -1,5 +1,4 @@
-FROM ubuntu
-MAINTAINER pength <thierry.peng@gmail.com
+FROM ubuntu:18.04
 
 ################################################################################
 ## exposing 8000 and 27015 on udp
@@ -11,7 +10,7 @@ EXPOSE 27015:27015/udp
 RUN set -x && \
     dpkg --add-architecture i386 && \
     apt-get update -qq && \
-    apt-get install -qq curl libstdc++6:i386 lib32gcc1
+    apt-get install -qq curl libstdc++6:i386 lib32gcc1 dos2unix
 
 ################################################################################
 ## cleaning as root
@@ -28,11 +27,12 @@ RUN mkdir -p /opt/chivalry && \
 
 ################################################################################
 ## copy run script
-COPY run.sh /usr/local/bin/run-chivalry
+COPY run.sh /usr/local/bin/run-chivalry.sh
+RUN dos2unix /usr/local/bin/run-chivalry.sh
 ## copy game.ini template
 COPY PCServer-UDKGame.ini /usr/local/bin/PCServer-UDKGame.ini
 
 ################################################################################
 ## app run
 USER steam
-ENTRYPOINT /usr/local/bin/run-chivalry
+ENTRYPOINT /usr/local/bin/run-chivalry.sh

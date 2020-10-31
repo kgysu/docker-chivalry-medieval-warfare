@@ -1,18 +1,53 @@
-# Chivalry: "Medieval Warfare" docker for the native linux server
+# Chivalry: "Medieval Warfare" docker
 
-## Cookbook 
+## Setup initial
 
-* create docker volume on host 
-* add liberal r/w at least for docker user
-* docker build -t chivalry_server .
-* docker run -ti -v /opt/chivalry:/opt/chivalry -p 0.0.0.0:8000:8000/udp -p 0.0.0.0:27015:27015/udp --name chivalry_server-instance-1 -t chivalry_server
+1. Change Passwords in Code.
+2. Run:
 
-## Features / tested with
+```bash
+docker volume create chivalry-data
+docker build . -t chivalry
+```
+
+
+## Run server
+
+```bash
+docker run -it -v chivalry-data:/opt/chivalry -p 0.0.0.0:8000:8000/udp -p 0.0.0.0:27015:27015/udp chivalry
+```
+
+Or use docker-compose:
+
+```bash
+docker-compose up
+```
+
+
+## Ressources
+
+### Maps
+
+[Hot To: Custom Maps](https://tornbannerjira.atlassian.net/wiki/spaces/CHIVCOM/pages/13336759/Hosting+a+server+with+custom+content)
+
+Maps:
+* 248639339: [Red Wedding](https://steamcommunity.com/sharedfiles/filedetails/?id=248639339)
+
+Add Map with: `-sdkfileid=x`
+
+
+## Info
+
+### Features / tested with
+
 * works with mod LSMOD, Blackknight, giantslayers
 * most maps (hoth excluded)
 * game.ini can be changed reliable
 * mods / workshop items can be changed reliable
 
-## known issues
+### known issues
+
 * scripts can be optimized
 * no restart if the server has a coredump
+* docker-compose network does not work
+
