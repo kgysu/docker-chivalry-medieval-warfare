@@ -1,26 +1,29 @@
-# Chivalry: "Medieval Warfare" docker
+# Chivalry: "Medieval Warfare" Server
 
-## Setup initial
+## Requirements
 
-1. Change Passwords in `run.sh`
-2. Run:
+* Running Docker (tested with WSL2)
+* Create folder for volume in `~/volumes/chivalry`
+
+
+## Setup
+
+Initial:
+
+1. Edit Credentials in `start.sh`
+    * adminpassword=some
+    * password=some
+3. Build Dockerimage
 
 ```bash
-docker volume create chivalry-data
 docker build . -t chivalry
 ```
 
 
-## Run server
+### Run
 
 ```bash
-docker run -it -v chivalry-data:/opt/chivalry -p 0.0.0.0:8000:8000/udp -p 0.0.0.0:27015:27015/udp chivalry
-```
-
-Or use docker-compose:
-
-```bash
-docker-compose up
+docker run -it -v ~/volumes/chivalry:/home/steam/games/chivalry -p 0.0.0.0:8000:8000/udp -p 0.0.0.0:27015:27015/udp --name chivalry chivalry
 ```
 
 
@@ -28,7 +31,7 @@ docker-compose up
 
 ### Maps
 
-[Hot To: Custom Maps](https://tornbannerjira.atlassian.net/wiki/spaces/CHIVCOM/pages/13336759/Hosting+a+server+with+custom+content)
+[How To: Custom Maps](https://tornbannerjira.atlassian.net/wiki/spaces/CHIVCOM/pages/13336759/Hosting+a+server+with+custom+content)
 
 Maps:
 * 248639339: [Red Wedding](https://steamcommunity.com/sharedfiles/filedetails/?id=248639339)
@@ -60,6 +63,4 @@ Change Map: `adminchangemap <name>`
 
 * scripts can be optimized
 * no restart if the server has a coredump
-* docker-compose network does not work
-* use steam user instead of root
 

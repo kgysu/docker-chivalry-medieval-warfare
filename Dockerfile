@@ -10,7 +10,12 @@ EXPOSE 27015:27015/udp
 RUN set -x && \
     dpkg --add-architecture i386 && \
     apt-get update -qq && \
-    apt-get install -qq curl libstdc++6:i386 lib32gcc1 dos2unix
+    apt-get install -qq curl libstdc++6:i386 lib32gcc1 dos2unix nano
+
+## Install Steamcmd
+RUN echo steam steam/question select "I AGREE" | debconf-set-selections
+RUN apt-get install steamcmd
+RUN ln -s /usr/games/steamcmd /usr/local/bin/steamcmd
 
 ################################################################################
 ## cleaning as root
@@ -21,18 +26,29 @@ RUN useradd -r -m -u 1000 steam
 
 ################################################################################
 ## volume
-RUN mkdir -p /opt/chivalry && \
-    chown steam -R /opt/chivalry && \
-    chmod 755 -R /opt/chivalry
+RUN mkdir -p /home/steam/games/chivalry && \
+    chown steam -R /home/steam/games/chivalry && \
+    chmod 755 -R /home/steam/games/chivalry
 
 ################################################################################
 ## copy run script
-COPY run.sh /usr/local/bin/run-chivalry.sh
-RUN dos2unix /usr/local/bin/run-chivalry.sh
+COPY --chown=steam install.sh /home/steam/install.sh
+RUN dos2unix /home/steam/install.sh
+
+COPY --chown=steam start.sh /home/steam/start.sh
+RUN dos2unix /home/steam/start.sh
+
+COPY --chown=steam update.txt /home/steam/update.txt
+RUN dos2unix /home/steam/update.txt
+
 ## copy game.ini template
-COPY PCServer-UDKGame.ini /usr/local/bin/PCServer-UDKGame.ini
+COPY --chown=steam PCServer-UDKGame.ini /home/steam/PCServer-UDKGame.ini
+RUN dos2unix /home/steam/PCServer-UDKGame.ini
 
 ################################################################################
 ## app run
-#USER steam
-ENTRYPOINT /usr/local/bin/run-chivalry.sh
+USER steam
+
+WORKDIR /home/steam/games/chivalry/Binaries/Linux
+
+ENTRYPOINT /home/steam/start.sh
