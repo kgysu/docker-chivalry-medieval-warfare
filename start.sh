@@ -25,4 +25,4 @@ echo "Start Game"
 
 export LD_LIBRARY_PATH=/home/steam/games/chivalry/linux64:/home/steam/games/chivalry/Binaries/Linux/lib
 
-./UDKGameServer-Linux AOCFFA-Moor_p\?steamsockets\?Port=8000\?QueryPort=27015\?adminpassword=chivadminl42\?password=closed4u -sdkfileid=248639339 -seekfreeloadingserver
+./UDKGameServer-Linux AOCFFA-Moor_p\?steamsockets\?Port=8000\?QueryPort=27015\?adminpassword=some\?password=some -sdkfileid=248639339 -seekfreeloadingserver
