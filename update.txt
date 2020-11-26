@@ -1,0 +1,4 @@
+login anonymous
+force_install_dir /home/steam/games/chivalry
+app_update 220070 validate
+quit

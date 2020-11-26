@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: chivalry
+spec:
+  serviceName: "chivalry-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chivalry
+  template:
+    metadata:
+      labels:
+        app: chivalry
+    spec:
+      containers:
+        - name: chivalry-container
+          image: delai21/chivalry-mw-server:0.2
+          env:
+            - name: ADMIN_PW
+              value: "changeme"
+            - name: GAME_PW
+              value: "changeme"
+          ports:
+            - containerPort: 8000
+              protocol: UDP
+            - containerPort: 27015
+              protocol: UDP
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "1"
+            limits:
+              memory: "2Gi"
+              cpu: "1"
+          volumeMounts:
+            - name: chivalry-data
+              mountPath: /home/steam/games/chivalry
+      volumes:
+        - name: chivalry-data
+          persistentVolumeClaim:
+            claimName: chivalry-local
