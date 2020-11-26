@@ -51,4 +51,7 @@ USER steam
 
 WORKDIR /home/steam/games/chivalry/Binaries/Linux
 
+ENV ADMIN_PW=''
+ENV GAME_PW=''
+
 ENTRYPOINT /home/steam/start.sh

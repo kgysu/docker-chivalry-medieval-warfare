@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: chivalry-data
+  labels:
+    name: chivalry-data
+spec:
+  capacity:
+    storage: 6Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /run/desktop/mnt/host/wsl/chivalry-data
+  #  the path '/run/desktop/mnt/host/wsl' can be found in wsl under: '/mnt/wsl'
+  #  mount volume to host: sudo mount --bind /home/kevin/kubevolumes/chivalry-data /mnt/wsl/chivalry-data
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - docker-desktop

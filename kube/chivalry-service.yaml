@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: chivalry-service
+  labels:
+    k8s-app: chivalry-service
+spec:
+  ports:
+    - name: game
+      protocol: UDP
+      port: 8000
+      targetPort: 8000
+    - name: query
+      protocol: UDP
+      port: 27015
+      targetPort: 27015
+  selector:
+    app: chivalry
+  type: NodePort
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster

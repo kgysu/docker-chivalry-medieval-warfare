@@ -3,6 +3,7 @@
 ## Requirements
 
 * Running Docker (tested with WSL2)
+* Optional: Kubernetes
 * Create folder for volume in `~/volumes/chivalry`
 
 
@@ -10,7 +11,7 @@
 
 Initial:
 
-1. Edit Credentials in `start.sh`
+1. Edit Credentials in `start.sh` or `chivalry-statefulset.yaml`
     * adminpassword=some
     * password=some
 3. Build Dockerimage
@@ -25,6 +26,8 @@ docker build . -t chivalry
 ```bash
 docker run -it -v ~/volumes/chivalry:/home/steam/games/chivalry -p 0.0.0.0:8000:8000/udp -p 0.0.0.0:27015:27015/udp --name chivalry chivalry
 ```
+
+Or run on Kubernetes: `/kube`
 
 
 ## Ressources
